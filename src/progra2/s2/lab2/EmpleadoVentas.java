@@ -59,12 +59,18 @@ public class EmpleadoVentas extends Empleado{
         return super.mostrarInformacion()+" Ventas anuales: "+calculoAnual();
     }
     
+    public String tipo() {
+        return "Ventas";
+    }
     
+    public double ventasAnuales() {
+        return calculoAnual();
+    }
     
-    
-    
-    
-    
-    
+    public String Reporte() {
+        return mostrarInformacion() +
+               ", Ventas Anuales: " + calculoAnual() +
+               ", " + etiquetaPago() + ": " + calcularPago();
+    }
     
 }

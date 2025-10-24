@@ -13,7 +13,6 @@ import java.util.Calendar;
 
 public class Empleado {
     
-    // atributos
     public int codigoUnico;
     public String nombre;
     public Calendar fechaContratacion;
@@ -62,9 +61,34 @@ public class Empleado {
     }
     
     public String mostrarInformacion() {
-        return "Código: " + codigoUnico +
+        return "Codigo: " + codigoUnico +
                ", Nombre: " + nombre +
                ", Fecha Contratación: " + fechaContratacion.getTime();
+    }
+    
+    public void registroVentas(double monto) {}
+    
+    public void actualizarContrato(Calendar nuevaFecha) {}
+    
+    
+    public String tipo() { 
+        return "Estandar"; 
+    }
+    
+    public String etiquetaPago() { 
+        return "Pago"; 
+    }
+    
+    public double ventasAnuales() { 
+        return 0.0; 
+    }
+    
+    public String Reporte() {
+        
+        return mostrarInformacion() +
+               ", Horas: " + getHorasTrabajadas() +
+               ", Salario Base: " + getSalarioBase() +
+               ", " + etiquetaPago() + ": " + calcularPago();
     }
     
 }
