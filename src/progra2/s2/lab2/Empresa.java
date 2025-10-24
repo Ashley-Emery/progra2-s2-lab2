@@ -53,4 +53,18 @@ public class Empresa {
         
         return false;
     }
+    
+    public boolean registrarVentas(int codigo, double monto) {
+        
+        Empleado emp = buscarPorCodigo(codigo);
+        
+        if (emp != null && monto > 0) {
+            
+            emp.registroVentas(monto);
+            return true;
+        }
+        
+        return false;
+    }
+    
 }

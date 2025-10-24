@@ -66,4 +66,6 @@ public class Empleado {
                ", Fecha Contratación: " + fechaContratacion.getTime();
     }
     
+    public void registroVentas(double monto) {}
+    
 }
