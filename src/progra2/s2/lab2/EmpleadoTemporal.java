@@ -9,7 +9,7 @@ public class EmpleadoTemporal extends Empleado {
 
     private Calendar fechaFinContrato;
 
-    public EmpleadoTemporal(int codigoUnico, String nombre, double salarioBase, double horasTrabajadas) {
+    public EmpleadoTemporal(int codigoUnico, String nombre, double salarioBase, double horasTrabajadas, Calendar fechaFinContrato) {
         super(codigoUnico, nombre, salarioBase, horasTrabajadas);
         this.fechaFinContrato = fechaFinContrato;
     }
@@ -18,10 +18,10 @@ public class EmpleadoTemporal extends Empleado {
     public double calcularPago() {
         Calendar hoy = Calendar.getInstance();
 
-        if (hoy.after(fechaFinContrato)) {
-            return super.calcularPago();
+        if (fechaFinContrato != null && hoy.after(fechaFinContrato)) {
+            return 0.0;
         }
-        return 0;
+        return super.calcularPago();
     }
 
     public void actualizarContrato(Calendar nuevoFinContrato) {
@@ -31,4 +31,15 @@ public class EmpleadoTemporal extends Empleado {
     public String mostrarInformacion() {
         return super.mostrarInformacion() + "Fecha de fin de contrato: " + fechaFinContrato.getTime();
     }
+    
+    public String tipo() {
+        return "Temporal";
+    }
+    
+    public String etiquetaPago() {
+        return "Pago condicionado";
+    }
+    
+
+    
 }

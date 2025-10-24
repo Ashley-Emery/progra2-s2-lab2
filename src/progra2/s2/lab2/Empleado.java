@@ -70,4 +70,25 @@ public class Empleado {
     
     public void actualizarContrato(Calendar nuevaFecha) {}
     
+    
+    public String tipo() { 
+        return "Estandar"; 
+    }
+    
+    public String etiquetaPago() { 
+        return "Pago"; 
+    }
+    
+    public double ventasAnuales() { 
+        return 0.0; 
+    }
+    
+    public String Reporte() {
+        
+        return mostrarInformacion() +
+               ", Horas: " + getHorasTrabajadas() +
+               ", Salario Base: " + getSalarioBase() +
+               ", " + etiquetaPago() + ": " + calcularPago();
+    }
+    
 }

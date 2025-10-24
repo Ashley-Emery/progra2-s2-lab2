@@ -89,4 +89,60 @@ public class Empresa {
         
     }
     
+    public String generarReporte() {
+        
+        String reporte = "Reporte de Empleados\n\n";
+
+        String Estandar = "Empleados Estándar\n";
+        String Temporal = "Empleados Temporales\n";
+        String Ventas   = "Empleados Ventas\n";
+
+        int contEstandar = 0;
+        int contTemporal = 0;
+        int contVentas   = 0;
+
+        for (Empleado emp : empleados) {
+            
+            String t = emp.tipo();
+            
+            if ("VENTAS".equals(t)) {
+                
+                contVentas++;
+                Ventas = Ventas + "- " + emp.Reporte() + "\n";
+                
+            } else if ("TEMPORAL".equals(t)) {
+                
+                contTemporal++;
+                Temporal = Temporal + "- " + emp.Reporte() + "\n";
+                
+            } else {
+                
+                contEstandar++;
+                Estandar = Estandar + "- " + emp.Reporte() + "\n";
+                
+            }
+        }
+
+        if (contEstandar == 0) {
+            Estandar = Estandar + "(Sin registros)\n";
+        }
+        
+        if (contTemporal == 0) {
+            Temporal = Temporal + "(Sin registros)\n";
+        }
+        
+        if (contVentas   == 0) {
+            Ventas   = Ventas   + "(Sin registros)\n";
+        }
+
+        reporte = reporte + Estandar + "\n" + Temporal + "\n" + Ventas + "\n";
+
+        reporte = reporte + "Totales -> Estándar: " + contEstandar +
+                  ", Temporales: " + contTemporal +
+                  ", Ventas: " + contVentas + "\n";
+
+        return reporte;
+    }
+
+    
 }

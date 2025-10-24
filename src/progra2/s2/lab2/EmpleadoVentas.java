@@ -57,15 +57,21 @@ public class EmpleadoVentas extends Empleado{
     
     public String toString()
     {
-        return super.toString()+" Ventas anuales: "+calculoAnual();
+        return super.mostrarInformacion()+" Ventas anuales: "+calculoAnual();
     }
     
+    public String tipo() {
+        return "Ventas";
+    }
     
+    public double ventasAnuales() {
+        return calculoAnual();
+    }
     
-    
-    
-    
-    
-    
+    public String Reporte() {
+        return mostrarInformacion() +
+               ", Ventas Anuales: " + calculoAnual() +
+               ", " + etiquetaPago() + ": " + calcularPago();
+    }
     
 }
