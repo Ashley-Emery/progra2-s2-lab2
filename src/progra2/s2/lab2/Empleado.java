@@ -35,4 +35,10 @@ public class Empleado {
         return nombre;
     }
     
+    public double getSalarioBase(){
+        return salarioBase;
+    }
+    
+    
+    
 }
