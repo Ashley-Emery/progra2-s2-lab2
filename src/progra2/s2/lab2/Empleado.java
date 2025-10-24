@@ -27,6 +27,10 @@ public class Empleado {
         this.fechaContratacion = Calendar.getInstance();
     }
     
+    public int getCodigoUnico(){
+        return codigoUnico;
+    }
+    
     
     
 }
