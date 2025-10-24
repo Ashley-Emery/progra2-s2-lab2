@@ -60,4 +60,10 @@ public class Empleado {
         return (pagoProporcional - deduccion);
     }
     
+    public String mostrarInformacion(){
+        return "Codigo: " + codigoUnico +
+                ", Nombre: " + nombre +
+                ", Fecha Contratacion: " + fechaContratacion.getTime();
+    }
+    
 }
