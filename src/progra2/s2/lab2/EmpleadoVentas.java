@@ -37,7 +37,6 @@ public class EmpleadoVentas extends Empleado{
         return calcComision;
     }
     
-    @Override
     public double calcularPago()
     {
         double pagoProporcional=super.calcularPago();
@@ -57,7 +56,7 @@ public class EmpleadoVentas extends Empleado{
     
     public String toString()
     {
-        return super.toString()+" Ventas anuales: "+calculoAnual();
+        return super.mostrarInformacion()+" Ventas anuales: "+calculoAnual();
     }
     
     
