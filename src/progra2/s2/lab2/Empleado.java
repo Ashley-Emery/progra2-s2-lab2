@@ -13,57 +13,58 @@ import java.util.Calendar;
 
 public class Empleado {
     
+    // atributos
     public int codigoUnico;
     public String nombre;
     public Calendar fechaContratacion;
     public double salarioBase;
     public double horasTrabajadas;
     
+    
     public Empleado(int codigoUnico, String nombre, double salarioBase, double horasTrabajadas){
         this.codigoUnico = codigoUnico;
         this.nombre = nombre;
         this.salarioBase = salarioBase;
-        this.horasTrabajadas = horasTrabajadas;
         this.fechaContratacion = Calendar.getInstance();
+        this.horasTrabajadas = 0;
     }
     
-    public int getCodigoUnico(){
-        return codigoUnico;
+    public int getCodigoUnico() { 
+        return codigoUnico; 
     }
     
-    public String getNombre(){
-        return nombre;
+    public String getNombre() { 
+        return nombre; 
     }
     
-    public double getSalarioBase(){
-        return salarioBase;
+    public double getSalarioBase() { 
+        return salarioBase; 
     }
     
-    public double getHorasTrabajadas(){
-        return horasTrabajadas;
+    public double getHorasTrabajadas() { 
+        return horasTrabajadas; 
     }
     
-    public Calendar getFechaContratacion(){
-        return fechaContratacion;
+    public Calendar getFechaContratacion() { 
+        return fechaContratacion; 
     }
     
-    public void registrarHoras(double horas){
-        if(horas > 0){
-            horasTrabajadas += horas;
+    public void registrarHoras(double horas) {
+        if (horas > 0) {
+            this.horasTrabajadas += horas;
         }
     }
     
-    public double calcularPago(){
-        double pagoProporcional = (horasTrabajadas / 160) * salarioBase;
+    public double calcularPago() {
+        double pagoProporcional = (horasTrabajadas / 160.0) * salarioBase;
         double deduccion = pagoProporcional * 0.035;
-        
-        return (pagoProporcional - deduccion);
+        return pagoProporcional - deduccion;
     }
     
-    public String mostrarInformacion(){
-        return "Codigo: " + codigoUnico +
-                ", Nombre: " + nombre +
-                ", Fecha Contratacion: " + fechaContratacion.getTime();
+    public String mostrarInformacion() {
+        return "Código: " + codigoUnico +
+               ", Nombre: " + nombre +
+               ", Fecha Contratación: " + fechaContratacion.getTime();
     }
     
 }
