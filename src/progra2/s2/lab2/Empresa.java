@@ -9,5 +9,4 @@ package progra2.s2.lab2;
  * @author ashley
  */
 public class Empresa {
-    
 }
