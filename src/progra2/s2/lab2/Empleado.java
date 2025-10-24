@@ -19,6 +19,14 @@ public class Empleado {
     public double salarioBase;
     public double horasTrabajadas;
     
+    public Empleado(int codigoUnico, String nombre, double salarioBase, double horasTrabajadas){
+        this.codigoUnico = codigoUnico;
+        this.nombre = nombre;
+        this.salarioBase = salarioBase;
+        this.horasTrabajadas = horasTrabajadas;
+        this.fechaContratacion = Calendar.getInstance();
+    }
+    
     
     
 }
