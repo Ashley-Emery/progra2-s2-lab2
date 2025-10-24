@@ -13,4 +13,12 @@ import java.util.Calendar;
 
 public class Empleado {
     
+    public int codigoUnico;
+    public String nombre;
+    public Calendar fechaContratacion;
+    public double salarioBase;
+    public double horasTrabajadas;
+    
+    
+    
 }
