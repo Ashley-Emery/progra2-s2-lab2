@@ -43,4 +43,10 @@ public class Empleado {
         return horasTrabajadas;
     }
     
+    public Calendar getFechaContratacion(){
+        return fechaContratacion;
+    }
+    
+    
+    
 }
