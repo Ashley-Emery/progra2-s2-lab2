@@ -67,4 +67,17 @@ public class Empresa {
         return false;
     }
     
+    public boolean actualizarFinContrato(int codigo, Calendar nuevaFecha) {
+        
+        Empleado emp = buscarPorCodigo(codigo);
+
+        if (emp != null && nuevaFecha != null) {
+            
+            emp.actualizarContrato(nuevaFecha);
+            return true;
+            
+        }
+
+        return false;
+    }
 }

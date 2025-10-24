@@ -68,4 +68,6 @@ public class Empleado {
     
     public void registroVentas(double monto) {}
     
+    public void actualizarContrato(Calendar nuevaFecha) {}
+    
 }
