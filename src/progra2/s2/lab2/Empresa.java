@@ -15,6 +15,18 @@ import java.util.Calendar;
 
 public class Empresa {
     
+    private final List<Empleado> empleados = new ArrayList<>();
     
+    public boolean Empresa(Empleado nuevo){
+        
+        if (nuevo == null)
+            return false;
+        
+        if (buscarPorCodigo(nuevo.getCodigoUnico()) != null) 
+            return false;
+        
+        empleados.add(nuevo);
+        return true;   
+    }
     
 }
