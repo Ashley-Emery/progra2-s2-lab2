@@ -47,6 +47,12 @@ public class Empleado {
         return fechaContratacion;
     }
     
+    public void registrarHoras(double horas){
+        if(horas > 0){
+            horasTrabajadas += horas;
+        }
+    }
+    
     
     
 }
