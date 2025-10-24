@@ -42,4 +42,15 @@ public class Empresa {
         return null;
     }
 
+    
+    public boolean registrarHoras(int codigo, double horas) {
+        Empleado emp = buscarPorCodigo(codigo);
+        
+        if (emp != null && horas > 0) {
+            emp.registrarHoras(horas);
+            return true;
+        }
+        
+        return false;
+    }
 }
