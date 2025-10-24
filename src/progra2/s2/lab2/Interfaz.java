@@ -22,7 +22,7 @@ public class Interfaz extends JFrame {
     public Interfaz() {
         super("Gestion de Empleados");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(900, 600);
+        setSize(900, 750);
         setResizable(false);
 
         JTabbedPane pestanias = new JTabbedPane();
@@ -34,7 +34,7 @@ public class Interfaz extends JFrame {
         pestanias.add("Actualizar Contrato", actualizarFinContrato());
         pestanias.add("Calcular Pago", calcularPagoMensual());
         pestanias.add("Generar Reporte", generarReporte());
-        pestanias.add("Buscar Empleado", generarReporte());
+        pestanias.add("Buscar Empleado", buscarEmpleado());
 
     }
 
@@ -165,35 +165,208 @@ public class Interfaz extends JFrame {
 
     private JPanel registrarHoras() {
         JPanel panel = new JPanel(null);
+
+        JLabel lblCod = new JLabel("Código:");
+        JTextField txtCod = new JTextField();
+        JLabel lblHoras = new JLabel("Horas a sumar:");
+        JTextField txtHoras = new JTextField();
+        JButton btn = new JButton("Registrar");
+
+        lblCod.setBounds(30, 30, 120, 25);
+        txtCod.setBounds(170, 30, 150, 25);
+        lblHoras.setBounds(30, 70, 120, 25);
+        txtHoras.setBounds(170, 70, 150, 25);
+        btn.setBounds(170, 110, 150, 35);
+
+        panel.add(lblCod); panel.add(txtCod);
+        panel.add(lblHoras); panel.add(txtHoras);
+        panel.add(btn);
+
+        btn.addActionListener(e -> {
+            try {
+                int codigo = Integer.parseInt(txtCod.getText().trim());
+                double horas = Double.parseDouble(txtHoras.getText().trim());
+                boolean ok = empresa.registrarHoras(codigo, horas);
+                JOptionPane.showMessageDialog(panel, ok ? "Horas registradas" : "Empleado no encontrado o horas inválidas");
+                if (ok) { txtCod.setText(""); txtHoras.setText(""); }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(panel, "Datos inválidos (código entero / horas numéricas).");
+            }
+        });
+
         return panel;
     }
+
 
     private JPanel registrarVentas() {
         JPanel panel = new JPanel(null);
+
+        JLabel lblCod = new JLabel("Código (Ventas):");
+        JTextField txtCod = new JTextField();
+        JLabel lblMonto = new JLabel("Monto de venta:");
+        JTextField txtMonto = new JTextField();
+        JButton btn = new JButton("Agregar venta (mes actual)");
+
+        lblCod.setBounds(30, 30, 140, 25);
+        txtCod.setBounds(190, 30, 150, 25);
+        lblMonto.setBounds(30, 70, 140, 25);
+        txtMonto.setBounds(190, 70, 150, 25);
+        btn.setBounds(190, 110, 200, 35);
+
+        panel.add(lblCod); panel.add(txtCod);
+        panel.add(lblMonto); panel.add(txtMonto);
+        panel.add(btn);
+
+        btn.addActionListener(e -> {
+            try {
+                int codigo = Integer.parseInt(txtCod.getText().trim());
+                double monto = Double.parseDouble(txtMonto.getText().trim());
+                boolean ok = empresa.registrarVentas(codigo, monto);
+                JOptionPane.showMessageDialog(panel, ok ? "Venta registrada en el mes actual" : "No es empleado de Ventas o datos inválidos");
+                if (ok) { txtCod.setText(""); txtMonto.setText(""); }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(panel, "Datos inválidos (código entero / monto numérico).");
+            }
+        });
+
         return panel;
     }
+
 
     private JPanel actualizarFinContrato() {
         JPanel panel = new JPanel(null);
+
+        JLabel lblCod = new JLabel("Código (Temporal):");
+        JTextField txtCod = new JTextField();
+        JLabel lblFecha = new JLabel("Nueva fecha fin (DD/MM/yyyy):");
+        JTextField txtFecha = new JTextField();
+        JButton btn = new JButton("Actualizar");
+
+        lblCod.setBounds(30, 30, 160, 25);
+        txtCod.setBounds(210, 30, 150, 25);
+        lblFecha.setBounds(30, 70, 200, 25);
+        txtFecha.setBounds(240, 70, 120, 25);
+        btn.setBounds(210, 110, 150, 35);
+
+        panel.add(lblCod); panel.add(txtCod);
+        panel.add(lblFecha); panel.add(txtFecha);
+        panel.add(btn);
+
+        btn.addActionListener(e -> {
+            try {
+                int codigo = Integer.parseInt(txtCod.getText().trim());
+                Calendar fin = parseFechaDDMM(txtFecha.getText().trim());
+                boolean ok = empresa.actualizarFinContrato(codigo, fin);
+                JOptionPane.showMessageDialog(panel, ok ? "Fecha de fin actualizada" : "Empleado no encontrado o no es Temporal");
+                if (ok) { txtCod.setText(""); txtFecha.setText(""); }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(panel, "Código inválido (entero).");
+            } catch (java.text.ParseException ex) {
+            JOptionPane.showMessageDialog(panel, "Fecha inválida. Usa DD/MM/yyyy");
+            }
+        });
+
         return panel;
     }
+
 
     private JPanel calcularPagoMensual() {
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(null);
+
+        JLabel lblCod = new JLabel("Código:");
+        JTextField txtCod = new JTextField();
+        JButton btn = new JButton("Calcular pago");
+        JLabel lblRes = new JLabel("Pago: —");
+
+        lblCod.setBounds(30, 30, 120, 25);
+        txtCod.setBounds(170, 30, 150, 25);
+        btn.setBounds(170, 70, 150, 35);
+        lblRes.setBounds(30, 120, 400, 25);
+
+        panel.add(lblCod); panel.add(txtCod);
+        panel.add(btn); panel.add(lblRes);
+
+        btn.addActionListener(e -> {
+            try {
+                int codigo = Integer.parseInt(txtCod.getText().trim());
+                Double pago = empresa.calcularPagoMensual(codigo);
+                if (pago == null) {
+                    lblRes.setText("Pago: Empleado no encontrado");
+                } else {
+                    lblRes.setText(String.format("Pago: L %.2f", pago));
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(panel, "Código inválido (entero).");
+            }
+        });
+
         return panel;
     }
+
 
     private JPanel generarReporte() {
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(null);
+
+        JButton btn = new JButton("Generar reporte");
+        JTextArea area = new JTextArea();
+        area.setEditable(false);
+        JScrollPane scroll = new JScrollPane(area);
+
+        btn.setBounds(30, 20, 160, 35);
+        scroll.setBounds(30, 70, 800, 420);
+
+        panel.add(btn);
+        panel.add(scroll);
+
+        btn.addActionListener(e -> area.setText(empresa.generarReporte()));
+
         return panel;
     }
 
+
     private JPanel buscarEmpleado() {
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(null);
+
+        JLabel lblCod = new JLabel("Código:");
+        JTextField txtCod = new JTextField();
+        JButton btn = new JButton("Buscar");
+        JTextArea area = new JTextArea();
+        area.setEditable(false);
+        JScrollPane scroll = new JScrollPane(area);
+
+        lblCod.setBounds(30, 20, 100, 25);
+        txtCod.setBounds(140, 20, 150, 25);
+        btn.setBounds(310, 20, 120, 25);
+        scroll.setBounds(30, 60, 800, 430);
+
+        panel.add(lblCod); panel.add(txtCod);
+        panel.add(btn); panel.add(scroll);
+
+        btn.addActionListener(e -> {
+            try {
+                int codigo = Integer.parseInt(txtCod.getText().trim());
+                Empleado emp = empresa.buscarPorCodigo(codigo);
+                area.setText(emp == null ? "No encontrado" : emp.Reporte());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(panel, "Código inválido (entero).");
+            }
+        });
+
         return panel;
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Interfaz().setVisible(true));
     }
+    
+    private Calendar parseFechaDDMM(String texto) throws java.text.ParseException {
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false);
+        java.util.Date f = sdf.parse(texto);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(f);
+        return cal;
+    }
+
 }
