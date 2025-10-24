@@ -29,4 +29,17 @@ public class Empresa {
         return true;   
     }
     
+    public Empleado buscarPorCodigo(int codigo) {
+        
+        for (Empleado emp : empleados) {
+            
+            if (emp.getCodigoUnico() == codigo) {
+                return emp;
+            }
+            
+        }
+        
+        return null;
+    }
+
 }
