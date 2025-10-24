@@ -39,6 +39,8 @@ public class Empleado {
         return salarioBase;
     }
     
-    
+    public double getHorasTrabajadas(){
+        return horasTrabajadas;
+    }
     
 }
