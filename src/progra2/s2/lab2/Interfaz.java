@@ -3,59 +3,62 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package progra2.s2.lab2;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
-import java.text.NumberFormat;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
 /**
  *
  * @author ferna
  */
-public class Interfaz extends JFrame{
-    
-    public Interfaz()
-    {
+public class Interfaz extends JFrame {
+
+    private Empresa empresa = new Empresa();
+
+    public Interfaz() {
         super("Gestion de Empleados");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(900,600);
+        setSize(900, 600);
         setResizable(false);
-        
-        JTabbedPane pestanias =new JTabbedPane();
-        setContentPane(pestanias); 
-        
+
+        JTabbedPane pestanias = new JTabbedPane();
+        setContentPane(pestanias);
+
         pestanias.add("Registrar Empleado", registrarEmpleado());
         pestanias.add("Registrar Horas ", registrarHoras());
-        pestanias.add("Registrar Ventas",registrarVentas());
+        pestanias.add("Registrar Ventas", registrarVentas());
         pestanias.add("Actualizar Contrato", actualizarFinContrato());
         pestanias.add("Calcular Pago", calcularPagoMensual());
-        pestanias.add("Generar Reporte",generarReporte());
-        pestanias.add("Buscar Empleado",generarReporte());
-        
+        pestanias.add("Generar Reporte", generarReporte());
+        pestanias.add("Buscar Empleado", generarReporte());
+
     }
-    
-    private JPanel registrarEmpleado()
-    {
-        JPanel panel=new JPanel(null);
+
+    private JPanel registrarEmpleado() {
+        JPanel panel = new JPanel(null);
         JLabel lblTipo = new JLabel("Seleccione el tipo de empleado:");
-        JComboBox<String> cboxTipo=new JComboBox<>(new String[]{"Estandar","Temporal","Ventas"});
-        JLabel lblCodigo=new JLabel("Ingrese el codigo del empleado: ");
-        JTextField txtCodigo=new JTextField();
-        JLabel lblNombre=new JLabel("Ingrese el nombre del empleado: ");
-        JTextField txtNombre=new JTextField();
-        JLabel lblSalario=new JLabel("Ingrese el salario base del usuario: ");
-        JTextField txtSalario=new JTextField();
-        JLabel lblFecha=new JLabel("Fecha de contratacion (DD/MM/yyyy)");
-        JTextField txtFecha=new JTextField();
-        
+        JComboBox<String> cboxTipo = new JComboBox<>(new String[]{"Estandar", "Temporal", "Ventas"});
+        JLabel lblCodigo = new JLabel("Ingrese el codigo del empleado: ");
+        JTextField txtCodigo = new JTextField();
+        JLabel lblNombre = new JLabel("Ingrese el nombre del empleado: ");
+        JTextField txtNombre = new JTextField();
+        JLabel lblSalario = new JLabel("Ingrese el salario base del usuario: ");
+        JTextField txtSalario = new JTextField();
+        JLabel lblFecha = new JLabel("Fecha de contratacion (DD/MM/yyyy)");
+        JTextField txtFecha = new JTextField();
+
         //para empleados especiales
-        JLabel lblContrato=new JLabel("Fin de contrato(solo temporales), (DD/MM/yyyy)");
-        JTextField txtContrato=new JTextField();
-        JLabel lblComision=new JLabel("Comision (solo ventas): ");
-        JTextField txtComision=new JTextField("0.5%");
-        
-        JButton btnRegistrar=new JButton("Registrar Empleado"); 
-        
+        JLabel lblContrato = new JLabel("Fin de contrato(solo temporales), (DD/MM/yyyy)");
+        JTextField txtContrato = new JTextField();
+        JLabel lblComision = new JLabel("Comision (solo ventas): ");
+        JTextField txtComision = new JTextField("0.5%");
+
+        JButton btnRegistrar = new JButton("Registrar Empleado");
+
         lblTipo.setBounds(30, 30, 200, 25);
         cboxTipo.setBounds(300, 30, 150, 25);
         lblCodigo.setBounds(30, 70, 250, 25);
@@ -71,12 +74,12 @@ public class Interfaz extends JFrame{
         lblComision.setBounds(30, 270, 250, 25);
         txtComision.setBounds(300, 270, 200, 25);
         btnRegistrar.setBounds(200, 320, 180, 35);
-        
+
         txtContrato.setVisible(false);
         lblContrato.setVisible(false);
         lblComision.setVisible(false);
         txtComision.setVisible(false);
-        
+
         panel.add(lblTipo);
         panel.add(cboxTipo);
         panel.add(lblCodigo);
@@ -90,7 +93,7 @@ public class Interfaz extends JFrame{
         panel.add(lblComision);
         panel.add(txtComision);
         panel.add(btnRegistrar);
-        
+
         cboxTipo.addActionListener(e -> {
             String tipo = cboxTipo.getSelectedItem().toString();
             txtContrato.setVisible(tipo.equals("Temporal"));
@@ -99,93 +102,98 @@ public class Interfaz extends JFrame{
             lblComision.setVisible(tipo.equals("Ventas"));
         });
         btnRegistrar.addActionListener(e -> {
-        try {
-            String tipo = cboxTipo.getSelectedItem().toString();
-            int codigo = Integer.parseInt(txtCodigo.getText().trim());
-            String nombre = txtNombre.getText().trim();
-            double salario = Double.parseDouble(txtSalario.getText().trim());
-            double horasIniciales = 0.0;
+            try {
+                String tipo = cboxTipo.getSelectedItem().toString();
+                int codigo = Integer.parseInt(txtCodigo.getText().trim());
+                String nombre = txtNombre.getText().trim();
+                double salario = Double.parseDouble(txtSalario.getText().trim());
+                double horasIniciales = 0.0;
 
-            boolean ok = false;
-            switch (tipo) {
-                case "Estándar":
-                    //ok = empresa.registrarEmpleado(new Empleado(codigo, nombre, salario, horasIniciales));
-                    break;
-                case "Temporal":
-                    java.sql.Date fin = java.sql.Date.valueOf(txtFin.getText().trim());
-                    //ok = empresa.registrarEmpleado(new EmpleadoTemporal(codigo, nombre, salario, horasIniciales, fin));
-                    break;
-                case "Ventas":
-                    double com = Double.parseDouble(txtCom.getText().trim());
-                    //ok = empresa.registrarEmpleado(new EmpleadoVentas(com, codigo, nombre, salario, horasIniciales));
-                    break;
+                boolean estado = false;
+                switch (tipo) {
+                    case "Estandar":
+                        estado = empresa.registrarEmpleado(new Empleado(codigo, nombre, salario, horasIniciales));
+                        break;
+                    case "Temporal":
+                            Calendar fin = Calendar.getInstance();
+                        try {
+                            String textoFecha = txtContrato.getText().trim();
+                            java.text.SimpleDateFormat formato = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                            java.util.Date fecha = formato.parse(textoFecha);
+
+                            fin.setTime(fecha);
+
+                            estado = empresa.registrarEmpleado(new EmpleadoTemporal(codigo, nombre, salario, horasIniciales, fin));
+                        } catch (java.text.ParseException ex) {
+                            
+                            JOptionPane.showMessageDialog(panel, "Formato de fecha inválido. Usa yyyy-MM-dd");
+                            
+                        }
+                        estado = empresa.registrarEmpleado(new EmpleadoTemporal(codigo, nombre, salario, horasIniciales, fin));
+                        break;
+                    case "Ventas":
+                        double com = Double.parseDouble(txtComision.getText().trim());
+                        estado = empresa.registrarEmpleado(new EmpleadoVentas(com, codigo, nombre, salario, horasIniciales));
+                        break;
+                }
+                if(estado)
+                {
+                    JOptionPane.showMessageDialog(this, "Empleado registrado correctamente");
+                }
+                else
+                    JOptionPane.showMessageDialog(this, "Codigo duplicado o datos invalidos");
+
+                if (estado) {
+                    txtCodigo.setText("");
+                    txtNombre.setText("");
+                    txtSalario.setText("");
+                    txtContrato.setText("");
+                    txtComision.setText("0.05");
+                    cboxTipo.setSelectedIndex(0);
+                    txtContrato.setEnabled(false);
+                    txtComision.setEnabled(false);
+                }
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(panel, "Error: " + ex.getMessage());
             }
+        });
 
-            JOptionPane.showMessageDialog(p, ok
-                ? "Empleado registrado correctamente."
-                : "Error: código duplicado o datos inválidos.");
+        return panel;
 
-            if (ok) {
-                txtCodigo.setText("");
-                txtNombre.setText("");
-                txtSalario.setText("");
-                txtFin.setText("");
-                txtCom.setText("0.05");
-                cbTipo.setSelectedIndex(0);
-                txtFin.setEnabled(false);
-                txtCom.setEnabled(false);
-            }
+    }
 
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(p, "Error: " + ex.getMessage());
-        }
-    });
-        
-        
-        
-        
-        
-        return panel;
-        
-    }
-    
-    private JPanel registrarHoras()
-    {
-        JPanel panel=new JPanel(null);
+    private JPanel registrarHoras() {
+        JPanel panel = new JPanel(null);
         return panel;
     }
-    
-    private JPanel registrarVentas()
-    {
-        JPanel panel =new JPanel(null);
+
+    private JPanel registrarVentas() {
+        JPanel panel = new JPanel(null);
         return panel;
     }
-    
-    private JPanel actualizarFinContrato()
-    {
-        JPanel panel=new JPanel(null);
+
+    private JPanel actualizarFinContrato() {
+        JPanel panel = new JPanel(null);
         return panel;
     }
-    
-    private JPanel calcularPagoMensual()
-    {
-        JPanel panel=new JPanel();
+
+    private JPanel calcularPagoMensual() {
+        JPanel panel = new JPanel();
         return panel;
     }
-    
-    private JPanel generarReporte()
-    {
-        JPanel panel=new JPanel();
+
+    private JPanel generarReporte() {
+        JPanel panel = new JPanel();
         return panel;
     }
-    
-    private JPanel buscarEmpleado()
-    {
-        JPanel panel=new JPanel();
+
+    private JPanel buscarEmpleado() {
+        JPanel panel = new JPanel();
         return panel;
     }
-    public static void main(String [] args)
-    {
-        SwingUtilities.invokeLater(()->new Interfaz().setVisible(true));
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new Interfaz().setVisible(true));
     }
 }

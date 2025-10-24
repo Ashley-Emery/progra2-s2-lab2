@@ -17,7 +17,7 @@ public class Empresa {
     
     private final List<Empleado> empleados = new ArrayList<>();
     
-    public boolean Empresa(Empleado nuevo){
+    public boolean registrarEmpleado(Empleado nuevo){
         
         if (nuevo == null)
             return false;
