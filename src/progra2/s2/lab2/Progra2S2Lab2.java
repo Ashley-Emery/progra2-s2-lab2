@@ -15,6 +15,8 @@ public class Progra2S2Lab2 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+            Interfaz interfaz = new Interfaz();
+            interfaz.setVisible(true);
     }
     
 }
