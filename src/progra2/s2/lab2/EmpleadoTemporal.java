@@ -14,7 +14,8 @@ public class EmpleadoTemporal extends Empleado {
         this.fechaFinContrato = fechaFinContrato;
     }
 
-    public double pagoCondicionado() {
+    @Override
+    public double calcularPago() {
         Calendar hoy = Calendar.getInstance();
 
         if (hoy.after(fechaFinContrato)) {

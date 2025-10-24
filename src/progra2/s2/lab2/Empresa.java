@@ -80,4 +80,13 @@ public class Empresa {
 
         return false;
     }
+    
+    public double calcularPagoMensual(int codigo) {
+        
+        Empleado emp = buscarPorCodigo(codigo);
+        
+        return (emp == null) ? 0.0 : emp.calcularPago();
+        
+    }
+    
 }
