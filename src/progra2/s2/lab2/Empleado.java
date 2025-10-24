@@ -31,6 +31,8 @@ public class Empleado {
         return codigoUnico;
     }
     
-    
+    public String getNombre(){
+        return nombre;
+    }
     
 }
