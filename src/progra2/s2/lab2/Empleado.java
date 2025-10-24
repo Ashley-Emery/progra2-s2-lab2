@@ -53,6 +53,11 @@ public class Empleado {
         }
     }
     
-    
+    public double calcularPago(){
+        double pagoProporcional = (horasTrabajadas / 160) * salarioBase;
+        double deduccion = pagoProporcional * 0.035;
+        
+        return (pagoProporcional - deduccion);
+    }
     
 }
