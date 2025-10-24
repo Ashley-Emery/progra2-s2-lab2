@@ -13,7 +13,6 @@ import java.util.Calendar;
 
 public class Empleado {
     
-    // atributos
     public int codigoUnico;
     public String nombre;
     public Calendar fechaContratacion;
@@ -62,7 +61,7 @@ public class Empleado {
     }
     
     public String mostrarInformacion() {
-        return "Código: " + codigoUnico +
+        return "Codigo: " + codigoUnico +
                ", Nombre: " + nombre +
                ", Fecha Contratación: " + fechaContratacion.getTime();
     }
